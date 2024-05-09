@@ -18,7 +18,7 @@ function RegisterForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/api/register', formData);
+            const response = await axios.post('https://carrum-signup.uw.r.appspot.com/api/register', formData);
             if (response.status === 201) {
                 alert('Registration Successful!');
                 setFormData({ fullName: '', email: '' }); // Reset form
