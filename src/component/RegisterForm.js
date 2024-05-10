@@ -21,13 +21,22 @@ function RegisterForm() {
             const response = await axios.post('https://carrum-signup.uw.r.appspot.com/api/register', formData);
             if (response.status === 201) {
                 alert('Registration Successful!');
-                setFormData({ fullName: '', email: '' }); // Reset form
+                setFormData({ fullName: '', email: '' });
             }
         } catch (error) {
-            console.error('Failed to register:', error);
-            alert('Registration failed!');
+            if (error.response) {
+                if (error.response.status === 409) {
+                    alert('You are already registered.');
+                } else {
+                    alert('Registration failed! ' + error.response.data);
+                }
+            } else {
+                console.error('Failed to register:', error);
+                alert('Registration failed!');
+            }
         }
     };
+
 
     return (
         <form onSubmit={handleSubmit}>
