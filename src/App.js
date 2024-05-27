@@ -1,10 +1,12 @@
 import React from 'react';
-import RegisterForm from "./component/RegisterForm";
+import MainComponent from "./component/MainComponent";
 
 function App() {
   return (
-      <div className="App">
-        <RegisterForm />
+      <div className="">
+          {/*<RegisteredUsers />*/}
+        <MainComponent />
+
       </div>
   );
 }

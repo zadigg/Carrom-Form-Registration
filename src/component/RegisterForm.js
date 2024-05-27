@@ -1,91 +1,34 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-function RegisterForm() {
-    const [formData, setFormData] = useState({
-        fullName: '',
-        email: ''
-    });
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState({ text: '', type: '' }); // Message state with text and type
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setMessage({ text: '', type: '' }); // Clear previous messages
-        try {
-            const response = await axios.post('https://carrum-signup.uw.r.appspot.com/api/register', formData);
-            if (response.status === 201) {
-                setMessage({ text: 'Registration Successful!', type: 'success' });
-                setFormData({ fullName: '', email: '' });
-            }
-        } catch (error) {
-            if (error.response) {
-                if (error.response.status === 409) {
-                    setMessage({ text: 'You are already registered.', type: 'error' });
-                } else {
-                    setMessage({ text: 'Registration failed! ' + error.response.data, type: 'error' });
-                }
-            } else {
-                console.error('Failed to register:', error);
-                setMessage({ text: 'Registration failed!', type: 'error' });
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const messageStyle = {
-        color: message.type === 'error' ? '#ff0000' : '#008000', // Red for error, green for success
-        textAlign: 'center',
-        marginTop: '20px'
-    };
-
+const RegisterForm = ({ onSubmit, loading, message, formData, handleChange }) => {
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f4f4f9' }}>
-            <form onSubmit={handleSubmit} style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', backgroundColor: '#fff', width: '100%', maxWidth: '400px' }}>
-                <h2 style={{ textAlign: 'center', color: '#333' }}>Register for Carrom Tournament</h2>
-                <div style={{ marginBottom: '20px' }}>
-                    <label style={{ display: 'block', marginBottom: '5px' }}>
-                        Full Name:
-                        <input
-                            type="text"
-                            name="fullName"
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            required
-                            style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '4px', border: '1px solid #ccc' }}
-                        />
-                    </label>
+        <div>
+            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 text-center">Register for Carrom Tournament</h2>
+            <p className="mt-1 text-gray-500 dark:text-gray-300 text-center">Join {formData.registeredCount} participants!</p>
+            <form onSubmit={onSubmit} className="mt-4">
+                <div>
+                    <label htmlFor="fullName" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+                    <input type="text" name="fullName" id="fullName" value={formData.fullName} onChange={handleChange} placeholder="Full Name" required
+                           className="block w-full px-4 py-2 mt-2 bg-white text-gray-700 placeholder-gray-400 border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"/>
                 </div>
-                <div style={{ marginBottom: '20px' }}>
-                    <label style={{ display: 'block', marginBottom: '5px' }}>
-                        Email:
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                            style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '4px', border: '1px solid #ccc' }}
-                        />
-                    </label>
+                <div className="mt-4">
+                    <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
+                    <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} placeholder="example@example.com" required
+                           className="block w-full px-4 py-2 mt-2 bg-white text-gray-700 placeholder-gray-400 border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"/>
                 </div>
-                <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007BFF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-                    {loading ? 'Registering...' : 'Register'}
-                </button>
-                {message.text && <div style={messageStyle}>{message.text}</div>}
+                <div className="mt-6">
+                    <button type="submit" className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                        {loading ? 'Registering...' : 'Register'}
+                    </button>
+                </div>
             </form>
-        </div>
+            {message.text && (
+                <div className={`text-center mt-4 ${message.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+                    {message.text}
+                </div>
+            )}
+             </div>
     );
-}
+};
 
 export default RegisterForm;
