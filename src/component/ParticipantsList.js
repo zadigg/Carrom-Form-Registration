@@ -2,7 +2,7 @@ import React from 'react';
 
 const ParticipantsList = ({ participants }) => {
     return (
-        <div className="p-4 pt-8 mt-4 bg-white rounded-md shadow-md overflow-auto" style={{ maxHeight: 'calc(100vh - 7rem)' }}>
+        <div className="p-4 pt-8 mt-4 mb-5 pb-8  bg-white rounded-md shadow-md overflow-auto" style={{ maxHeight: 'calc(100vh - 7rem)' }}>
             <h2 className="text-xl font-bold mb-4">Participants</h2>
             <div className="flex flex-col space-y-2  ">
                 {participants.map((participant, index) => (
