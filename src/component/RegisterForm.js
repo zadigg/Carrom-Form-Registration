@@ -2,7 +2,7 @@ import React from 'react';
 
 const RegisterForm = ({ onSubmit, loading, message, formData, handleChange }) => {
     return (
-        <div>
+        <div className="-mt-14">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 text-center">Register for Carrom Tournament</h2>
             <p className="mt-1 text-gray-500 dark:text-gray-300 text-center">Join {formData.registeredCount} participants!</p>
             <form onSubmit={onSubmit} className="mt-4">
