@@ -53,9 +53,13 @@ const MainComponent = () => {
             }
         } catch (error) {
             if (error.response) {
-                setMessage({ text: 'Registration failed! ' + error.response.data, type: 'error' });
+                if (error.response.status === 400 && error.response.data === "Registration full: we've reached our 32-participant limit!") {
+                    setMessage({ text: error.response.data, type: 'error' });
+                } else {
+                    setMessage({ text: 'Registration failed! ' + error.response.data, type: 'error' });
+                }
             } else {
-                setMessage({ text: 'Registration failed!', type: 'error' });
+                setMessage({ text: 'Registration failed! Check your network and try again.', type: 'error' });
             }
         } finally {
             setLoading(false);
