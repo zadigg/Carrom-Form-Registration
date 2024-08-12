@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProjectJailBreakImage from '../asset/ProjectJailBreak.webp'; // Ensure this path is correct
+import ProjectJailBreakImageTwo from '../asset/ProjectJailBreak1.webp'; // Ensure this path is correct
 import RegisterForm from './RegisterForm';
 import ParticipantsList from './ParticipantsList';
 import { fetchRegisteredCount, fetchParticipants, registerParticipant } from '../api';
@@ -72,7 +73,7 @@ const MainComponent = () => {
 
     return (
         <div className="bg-white dark:bg-gray-900 flex">
-            <div className="hidden lg:block lg:w-2/3 bg-cover" style={{ backgroundImage: `url(${ProjectJailBreakImage})` }}>
+            <div className="hidden lg:block lg:w-2/3 bg-cover" style={{ backgroundImage: `url(${ProjectJailBreakImageTwo})` }}>
             </div>
             <div className="w-full max-w-md px-6 mx-auto lg:w-1/3 mt-14">
                 <div className="bg-gray-50 px-5 py-3 dark:bg-gray-800 flex justify-between">
