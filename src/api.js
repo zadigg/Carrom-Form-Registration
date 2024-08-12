@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://carrum-signup.uw.r.appspot.com/api/register';
-// const BASE_URL = 'http://localhost:3001/api/register';
+const OLD_BASE_URL = 'https://carrum-signup.uw.r.appspot.com/api/register';
 
+const BASE_URL = 'https://carrum-registration.uw.r.appspot.com/api/register';
+
+// const BASE_URL = 'http://localhost:3001/api/register';
 
 export const fetchRegisteredCount = async () => {
     try {
