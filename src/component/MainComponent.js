@@ -16,6 +16,7 @@ const MainComponent = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState({ text: '', type: '' });
     const [participants, setParticipants] = useState([]);
+    const [loadingParticipants, setLoadingParticipants] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,8 +29,10 @@ const MainComponent = () => {
     useEffect(() => {
         if (view === 'participants') {
             const fetchData = async () => {
+                setLoadingParticipants(true);
                 const data = await fetchParticipants();
                 setParticipants(data);
+                setLoadingParticipants(false);
             };
             fetchData();
         }
@@ -92,7 +95,7 @@ const MainComponent = () => {
                         <RegisterForm onSubmit={handleSubmit} loading={loading} message={message} formData={formData}
                                       handleChange={handleChange}/>
                     ) : (
-                        <ParticipantsList participants={participants}/>
+                        <ParticipantsList participants={participants} loading={loadingParticipants}/>
                     )}
                 </div>
             </div>
