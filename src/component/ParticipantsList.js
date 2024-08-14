@@ -1,11 +1,15 @@
 import React from 'react';
 
-const ParticipantsList = ({ participants }) => {
+const ParticipantsList = ({ participants, loading }) => {
     return (
-        <div className="p-4 pt-8 mt-4 mb-5 pb-8  bg-white rounded-md shadow-md overflow-auto" style={{ maxHeight: 'calc(100vh - 7rem)' }}>
+        <div className="p-4 pt-8 mt-4 mb-5 pb-8 bg-white rounded-md shadow-md overflow-auto" style={{ maxHeight: 'calc(100vh - 7rem)' }}>
             <h2 className="text-xl font-bold mb-4">Participants</h2>
-            {participants.length === 0 ? (
-                <div className="flex justify-center items-center ">
+            {loading ? (
+                <div className="flex justify-center items-center">
+                    <p className="text-sm font-medium text-gray-500">Loading...</p>
+                </div>
+            ) : participants.length === 0 ? (
+                <div className="flex justify-center items-center">
                     <p className="text-sm font-medium text-gray-500">There are no participants registered yet.</p>
                 </div>
             ) : (
