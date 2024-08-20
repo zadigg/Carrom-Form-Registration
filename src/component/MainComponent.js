@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import ProjectJailBreakImage from '../asset/ProjectJailBreak.webp';
-// import ProjectJailBreakImageTwo from '../asset/ProjectJailBreak1.webp';
 import ProjectJailBreakImageThree from '../asset/ProjectJailBreak2.webp';
 import RegisterForm from './RegisterForm';
 import ParticipantsList from './ParticipantsList';
@@ -14,14 +12,21 @@ const MainComponent = () => {
         registeredCount: 0
     });
     const [loading, setLoading] = useState(false);
+    const [loadingCount, setLoadingCount] = useState(true); // New state for loading count
     const [message, setMessage] = useState({ text: '', type: '' });
     const [participants, setParticipants] = useState([]);
     const [loadingParticipants, setLoadingParticipants] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            const count = await fetchRegisteredCount();
-            setFormData(prevState => ({ ...prevState, registeredCount: count }));
+            try {
+                const count = await fetchRegisteredCount();
+                setFormData(prevState => ({ ...prevState, registeredCount: count }));
+            } catch (error) {
+                console.error('Error fetching registered count:', error);
+            } finally {
+                setLoadingCount(false); // Set loadingCount to false after fetching
+            }
         };
         fetchData();
     }, []);
@@ -93,7 +98,7 @@ const MainComponent = () => {
                     style={{height: 'calc(96.6vh - 5rem)'}}>
                     {view === 'Register' ? (
                         <RegisterForm onSubmit={handleSubmit} loading={loading} message={message} formData={formData}
-                                      handleChange={handleChange}/>
+                                      handleChange={handleChange} loadingCount={loadingCount} />
                     ) : (
                         <ParticipantsList participants={participants} loading={loadingParticipants}/>
                     )}
